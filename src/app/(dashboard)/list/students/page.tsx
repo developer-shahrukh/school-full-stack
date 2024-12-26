@@ -4,13 +4,13 @@ import TableSearch from "@/components/TableSearch";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { role, studentsData } from "@/lib/data";
 import FormModal from "@/components/FormModal";
 import { Class, Prisma, Student } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
+import { role } from "@/lib/utils";
 
-type StudentList = Student & { class: Class};
+type StudentList = Student & { class: Class };
 
 const columns = [
   {
@@ -38,11 +38,15 @@ const columns = [
     accessor: "address",
     className: "hidden lg:table-cell",
   },
-  {
-    header: "Actions",
-    accessor: "actions",
-    className: [],
-  },
+  ...(role === "admin"
+    ? [
+        {
+          header: "Actions",
+          accessor: "actions",
+          className: [],
+        },
+      ]
+    : []),
 ];
 
 const renderRow = (item: StudentList) => (

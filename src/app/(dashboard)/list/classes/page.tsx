@@ -2,15 +2,14 @@ import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
-import { classesData, role } from "@/lib/data";
 import FormModal from "@/components/FormModal";
 import { Class, Prisma, Teacher } from "@prisma/client";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import prisma from "@/lib/prisma";
+import { role } from "@/lib/utils";
 
-type ClassList = Class & {supervisor:Teacher}
+type ClassList = Class & { supervisor: Teacher };
 
 const columns = [
   {
@@ -33,11 +32,15 @@ const columns = [
     accessor: "supervisor",
     className: "hidden md:table-cell",
   },
-  {
-    header: "Actions",
-    accessor: "actions",
-    className: [],
-  },
+  ...(role === "admin"
+    ? [
+        {
+          header: "Actions",
+          accessor: "actions",
+          className: [],
+        },
+      ]
+    : []),
 ];
 
 const renderRow = (item: ClassList) => (
@@ -48,7 +51,9 @@ const renderRow = (item: ClassList) => (
     <td className="flex items-center gap-4 p-4">{item.name}</td>
     <td className="hidden md:table-cell">{item.capacity}</td>
     <td className="hidden md:table-cell">{item.name[0]}</td>
-    <td className="hidden md:table-cell">{item.supervisor.name + " " + item.supervisor.surname}</td>
+    <td className="hidden md:table-cell">
+      {item.supervisor.name + " " + item.supervisor.surname}
+    </td>
     <td>
       <div className="flex items-center gap-2">
         {role === "admin" && (

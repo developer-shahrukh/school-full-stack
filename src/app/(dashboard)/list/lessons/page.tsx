@@ -4,11 +4,11 @@ import TableSearch from "@/components/TableSearch";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { classesData, lessonsData, role } from "@/lib/data";
 import FormModal from "@/components/FormModal";
 import { Class, Lesson, Prisma, Subject, Teacher } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
+import { role } from "@/lib/utils";
 
 type LessonList = Lesson & { subject: Subject } & { class: Class } & {
   teacher: Teacher;
@@ -29,11 +29,15 @@ const columns = [
     accessor: "teacher",
     className: "hidden md:table-cell",
   },
-  {
-    header: "Actions",
-    accessor: "actions",
-    className: [],
-  },
+  ...(role === "admin"
+    ? [
+        {
+          header: "Actions",
+          accessor: "actions",
+          className: [],
+        },
+      ]
+    : []),
 ];
 const renderRow = (item: LessonList) => (
   <tr
@@ -42,7 +46,9 @@ const renderRow = (item: LessonList) => (
   >
     <td className="flex items-center gap-4 p-4">{item.subject.name}</td>
     <td>{item.class.name}</td>
-    <td className="hidden md:table-cell">{item.teacher.name +" "+ item.teacher.surname}</td>
+    <td className="hidden md:table-cell">
+      {item.teacher.name + " " + item.teacher.surname}
+    </td>
     <td>
       <div className="flex items-center gap-2">
         {role === "admin" && (
@@ -73,16 +79,18 @@ const LessonListPage = async ({
       if (value !== undefined) {
         switch (key) {
           case "classId":
-            query.classId=parseInt(value);
+            query.classId = parseInt(value);
             break;
           case "teacherId":
-            query.teacherId=value;
+            query.teacherId = value;
             break;
           case "search":
-            query.OR=[
-              {subject: {name : { contains: value, mode: "insensitive" }}},
-              {teacher: {name : { contains: value, mode: "insensitive" }}},
-            ]
+            query.OR = [
+              { subject: { name: { contains: value, mode: "insensitive" } } },
+              { teacher: { name: { contains: value, mode: "insensitive" } } },
+            ];
+            break;
+          default:
             break;
         }
       }

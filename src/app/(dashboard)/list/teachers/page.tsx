@@ -4,11 +4,11 @@ import TableSearch from "@/components/TableSearch";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { role, teachersData } from "@/lib/data";
 import FormModal from "@/components/FormModal";
 import { Class, Prisma, Subject, Teacher } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
+import { role } from "@/lib/utils";
 
 type TeacherList = Teacher & { subjects: Subject[] } & { classes: Class[] };
 
@@ -43,11 +43,15 @@ const columns = [
     accessor: "address",
     className: "hidden lg:table-cell",
   },
-  {
-    header: "Actions",
-    accessor: "actions",
-    className: [],
-  },
+  ...(role === "admin"
+      ? [
+          {
+            header: "Actions",
+            accessor: "actions",
+            className: [],
+          },
+        ]
+      : []),
 ];
 
 const renderRow = (item: TeacherList) => (

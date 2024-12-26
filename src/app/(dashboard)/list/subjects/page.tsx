@@ -10,7 +10,7 @@ import { Prisma, Subject, Teacher } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 
-type SubjectList =  Subject & {teachers:Teacher[]}
+type SubjectList = Subject & { teachers: Teacher[] };
 
 const columns = [
   {
@@ -36,7 +36,9 @@ const renderRow = (item: SubjectList) => (
     className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-smPurpleLight"
   >
     <td className="flex items-center gap-4 p-4">{item.name}</td>
-    <td className="hidden md:table-cell">{item.teachers.map(teacher=>teacher.name).join(",")}</td>
+    <td className="hidden md:table-cell">
+      {item.teachers.map((teacher) => teacher.name).join(",")}
+    </td>
     <td>
       <div className="flex items-center gap-2">
         {role === "admin" && (
@@ -50,7 +52,7 @@ const renderRow = (item: SubjectList) => (
   </tr>
 );
 
-const SubjectsList=async ({
+const SubjectsList = async ({
   searchParams,
 }: {
   searchParams: { [key: string]: string | undefined };
@@ -60,31 +62,32 @@ const SubjectsList=async ({
 
   // URL  PARAMS CONDITION
 
-  const query: Prisma.SubjectWhereInput={};
+  const query: Prisma.SubjectWhereInput = {};
 
   if (queryParams) {
     for (const [key, value] of Object.entries(queryParams)) {
       if (value !== undefined) {
         switch (key) {
-            case "search":
-              query.name={contains:value,mode:"insensitive"}
-              break;
-          }
+          case "search":
+            query.name = { contains: value, mode: "insensitive" };
+            break;
+          default:
+            break;
         }
       }
     }
+  }
 
-    
   const [data, count] = await prisma.$transaction([
     prisma.subject.findMany({
-      where:query,
+      where: query,
       include: {
         teachers: true,
       },
       take: ITEM_PER_PAGE,
       skip: ITEM_PER_PAGE * (p - 1),
     }),
-    prisma.subject.count({where:query}),
+    prisma.subject.count({ where: query }),
   ]);
 
   return (
@@ -101,16 +104,16 @@ const SubjectsList=async ({
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-smYellow">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
-            <FormModal table="subject" type="create"/>
+            <FormModal table="subject" type="create" />
           </div>
         </div>
       </div>
       {/* LIST */}
       <Table columns={columns} renderRow={renderRow} data={data} />
       {/* PAGINTATION */}
-      <Pagination page={p} count={count}/>
+      <Pagination page={p} count={count} />
     </div>
   );
-}
+};
 
 export default SubjectsList;
