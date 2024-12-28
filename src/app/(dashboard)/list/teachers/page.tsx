@@ -9,6 +9,7 @@ import { Class, Prisma, Subject, Teacher } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import { role } from "@/lib/utils";
+import FormContainer from "@/components/FormContainer";
 
 type TeacherList = Teacher & { subjects: Subject[] } & { classes: Class[] };
 
@@ -90,7 +91,7 @@ const renderRow = (item: TeacherList) => (
         </Link>
         {role === "admin" && (
           <>
-            <FormModal table="teacher" type="delete" id={item.id} />
+            <FormContainer table="teacher" type="delete" id={item.id} />
           </>
         )}
       </div>
@@ -161,7 +162,7 @@ const TeacherListPage = async ({
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-smYellow">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
-            <FormModal table="teacher" type="create" />
+            <FormContainer table="teacher" type="create" />
           </div>
         </div>
       </div>
