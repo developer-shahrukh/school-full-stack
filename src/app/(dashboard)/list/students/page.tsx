@@ -4,11 +4,16 @@ import TableSearch from "@/components/TableSearch";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import FormModal from "@/components/FormModal";
 import { Class, Prisma, Student } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
-import { role } from "@/lib/utils";
+import { auth } from "@clerk/nextjs/server";
+import FormContainer from "@/components/FormContainer";
+
+
+const { userId, sessionClaims } = await auth();
+export const role = (sessionClaims?.metadata as { role?: string })?.role;
+export const currentUserId = userId;
 
 type StudentList = Student & { class: Class };
 
@@ -79,9 +84,7 @@ const renderRow = (item: StudentList) => (
           </button>
         </Link>
         {role === "admin" && (
-          <>
-            <FormModal table="student" type="delete" id={item.id} />
-          </>
+            <FormContainer table="student" type="delete" id={item.id} />
         )}
       </div>
     </td>
@@ -149,7 +152,7 @@ const StudentsList = async ({
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-smYellow">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
-            <FormModal table="student" type="create" />
+            {role==="admin" && (<FormContainer table="student" type="create" />)}
           </div>
         </div>
       </div>

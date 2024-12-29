@@ -6,8 +6,12 @@ import FormModal from "@/components/FormModal";
 import { Prisma, Subject, Teacher } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
-import { role } from "@/lib/utils";
 import FormContainer from "@/components/FormContainer";
+import { auth } from "@clerk/nextjs/server";
+
+const { userId, sessionClaims } = await auth();
+const role = (sessionClaims?.metadata as { role?: string })?.role;
+const currentUserId=userId;
 
 type SubjectList = Subject & { teachers: Teacher[] };
 

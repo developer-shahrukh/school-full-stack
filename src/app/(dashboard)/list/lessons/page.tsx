@@ -8,7 +8,11 @@ import FormModal from "@/components/FormModal";
 import { Class, Lesson, Prisma, Subject, Teacher } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
-import { role } from "@/lib/utils";
+import { auth } from "@clerk/nextjs/server";
+
+const { userId, sessionClaims } = await auth();
+const role = (sessionClaims?.metadata as { role?: string })?.role;
+const currentUserId=userId;
 
 type LessonList = Lesson & { subject: Subject } & { class: Class } & {
   teacher: Teacher;

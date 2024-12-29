@@ -8,7 +8,10 @@ import FormModal from "@/components/FormModal";
 import { Assignment, Class, Prisma, Subject, Teacher } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
-import { currentUserId, role } from "@/lib/utils";
+
+const { userId, sessionClaims } = await auth();
+const role = (sessionClaims?.metadata as { role?: string })?.role;
+const currentUserId=userId;
 
 type AssignmentList = Assignment & {
   lesson: {
