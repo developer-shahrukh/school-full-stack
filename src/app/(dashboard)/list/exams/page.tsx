@@ -6,9 +6,12 @@ import React from "react";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import { Class, Exam, Prisma, Subject, Teacher } from "@prisma/client";
-import { currentUserId, role } from "@/lib/utils";
 import FormContainer from "@/components/FormContainer";
+import { auth } from "@clerk/nextjs/server";
 
+const { userId, sessionClaims } = await auth();
+const role = (sessionClaims?.metadata as { role?: string })?.role;
+const currentUserId=userId;
 type ExamList = Exam & {
   lesson: {
     subject: Subject;
@@ -79,7 +82,7 @@ const ExamListPage = async ({
 }: {
   searchParams: { [key: string]: string | undefined };
 }) => {
-  const { page, ...queryParams } = searchParams;
+  const { page, ...queryParams } =await searchParams;
   const p = page ? parseInt(page) : 1;
 
   // URL  PARAMS CONDITION

@@ -8,6 +8,7 @@ import FormModal from "@/components/FormModal";
 import { Assignment, Class, Prisma, Subject, Teacher } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
+import { auth } from "@clerk/nextjs/server";
 
 const { userId, sessionClaims } = await auth();
 const role = (sessionClaims?.metadata as { role?: string })?.role;
@@ -79,7 +80,7 @@ const AssignmentsListPage = async ({
 }: {
   searchParams: { [key: string]: string | undefined };
 }) => {
-  const { page, ...queryParams } = searchParams;
+  const { page, ...queryParams } =await searchParams;
   const p = page ? parseInt(page) : 1;
 
   // URL  PARAMS CONDITION

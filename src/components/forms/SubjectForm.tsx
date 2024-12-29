@@ -56,7 +56,7 @@ const SubjectForm = ({
     }
   }, [state,setOpen,router]);
 
-  const { teachers } = relatedData;
+  const { teachers} = relatedData;
 
   return (
     <form className="flex flex-col gap-8" onSubmit={onSubmit}>

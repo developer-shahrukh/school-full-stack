@@ -7,7 +7,6 @@ import FormModal from "@/components/FormModal";
 import { Class, Prisma, Teacher } from "@prisma/client";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import prisma from "@/lib/prisma";
-
 import { auth } from "@clerk/nextjs/server";
 
 const { userId, sessionClaims } = await auth();

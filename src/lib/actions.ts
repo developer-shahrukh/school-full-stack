@@ -140,7 +140,8 @@ export const createTeacher = async (
   data: TeacherSchema
 ) => {
   try {
-    const user = await clerkClient.users.createUser({
+    const resolvedClerkClient = await clerkClient();
+    const user = await resolvedClerkClient.users.createUser({
       username: data.username,
       password: data.password,
       firstName: data.name,
@@ -157,7 +158,7 @@ export const createTeacher = async (
         img: data.img || null,
         bloodType: data.bloodType,
         sex: data.sex,
-        birthday: data.birthday,
+        birthday: data.birthday ? new Date(data.birthday) : "",
         subjects: {
           connect: data.subjects?.map((subjectId: string) => ({
             id: parseInt(subjectId),
@@ -178,22 +179,23 @@ export const updateTeacher = async (
   currentState: CurrentState,
   data: TeacherSchema
 ) => {
-  if(!data.id){
-    return {success:false,error:true};
+  if (!data.id) {
+    return { success: false, error: true };
   }
   try {
-    const user = await clerkClient.users.updateUser(data.id,{
+    const resolvedClerkClient = await clerkClient();
+    const user = await resolvedClerkClient.users.updateUser(data.id, {
       username: data.username,
-      ...(data.password !=="" && {password:data.password}),
+      ...(data.password !== "" && { password: data.password }),
       firstName: data.name,
       lastName: data.surname,
     });
     await prisma.teacher.update({
-      where:{
-        id:data.id,
+      where: {
+        id: data.id,
       },
       data: {
-        ...(data.password !=="" && {password:data.password}),
+        ...(data.password !== "" && { password: data.password }),
         username: data.username,
         surname: data.surname,
         email: data.email || null,
@@ -225,7 +227,8 @@ export const deleteTeacher = async (
 ) => {
   const id = data.get("id") as string;
   try {
-    await clerkClient.users.deleteUser(id);
+    const resolvedClerkClient = await clerkClient();
+    await resolvedClerkClient.users.deleteUser(id);
     await prisma.teacher.delete({
       where: {
         id: id,
@@ -240,12 +243,11 @@ export const deleteTeacher = async (
   }
 };
 
-
 export const createStudent = async (
   currentState: CurrentState,
   data: StudentSchema
 ) => {
-  console.log(data);
+  //console.log(data);
   try {
     const classItem = await prisma.class.findUnique({
       where: { id: data.classId },
@@ -255,13 +257,13 @@ export const createStudent = async (
     if (classItem && classItem.capacity === classItem._count.students) {
       return { success: false, error: true };
     }
-
-    const user = await clerkClient.users.createUser({
+    const resolvedClerkClient = await clerkClient();
+    const user = await resolvedClerkClient.users.createUser({
       username: data.username,
       password: data.password,
       firstName: data.name,
       lastName: data.surname,
-      publicMetadata:{role:"student"}
+      publicMetadata: { role: "student" },
     });
 
     await prisma.student.create({
@@ -285,8 +287,8 @@ export const createStudent = async (
 
     // revalidatePath("/list/students");
     return { success: true, error: false };
-  } catch (err) {
-    console.log(err);
+  } catch (err: any) {
+    console.log("Error creating user : " + err);
     return { success: false, error: true };
   }
 };
@@ -299,7 +301,8 @@ export const updateStudent = async (
     return { success: false, error: true };
   }
   try {
-    const user = await clerkClient.users.updateUser(data.id, {
+    const resolvedClerkClient = await clerkClient();
+    const user = await resolvedClerkClient.users.updateUser(data.id, {
       username: data.username,
       ...(data.password !== "" && { password: data.password }),
       firstName: data.name,
@@ -341,7 +344,8 @@ export const deleteStudent = async (
 ) => {
   const id = data.get("id") as string;
   try {
-    await clerkClient.users.deleteUser(id);
+    const resolvedClerkClient=await clerkClient();
+    await resolvedClerkClient.users.deleteUser(id);
 
     await prisma.student.delete({
       where: {
@@ -356,7 +360,6 @@ export const deleteStudent = async (
     return { success: false, error: true };
   }
 };
-
 
 export const createExam = async (
   currentState: CurrentState,

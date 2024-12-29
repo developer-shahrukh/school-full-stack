@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import InputField from "../InputField";
 import Image from "next/image";
 import {
@@ -59,9 +58,9 @@ const TeacherForm = ({
       setOpen(false);
       router.refresh();
     }
-  }, [state, setOpen, router]);
+  }, [state, router,type,setOpen]);
 
-  const { subjects } = relatedData;
+  const { subjects=[] } = relatedData || {};
   return (
     <form className="flex flex-col gap-8" onSubmit={onSubmit}>
       <h1 className="text-xl font-semibold">
@@ -104,14 +103,14 @@ const TeacherForm = ({
           name="name"
           defaultValue={data?.name}
           register={register}
-          error={errors?.name}
+          error={errors.name}
         />
         <InputField
           label="Last Name"
           name="surname"
           defaultValue={data?.surname}
           register={register}
-          error={errors?.surname}
+          error={errors.surname}
         />
         <InputField
           label="Phone"
@@ -127,7 +126,7 @@ const TeacherForm = ({
           type="address"
           defaultValue={data?.address}
           register={register}
-          error={errors?.address}
+          error={errors.address}
         />
         <InputField
           label="Blood Type"
@@ -135,13 +134,14 @@ const TeacherForm = ({
           type="bloodType"
           defaultValue={data?.bloodType}
           register={register}
-          error={errors?.bloodType}
+          error={errors.bloodType}
         />
         <InputField
           label="Birthday"
           name="birthday"
           type="date"
-          defaultValue={data?.birthday.toISOString().split("T")[0]}
+          defaultValue={data?.birthday ? new Date(data.birthday).toISOString().split("T")[0] : ""}
+         // defaultValue={data?.birthday.toISOString().split("T")[0]}
           register={register}
           error={errors?.birthday}
         />
@@ -177,7 +177,7 @@ const TeacherForm = ({
             multiple
             className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
             {...register("subjects")}
-            defaultValue={data?.subjects}
+            defaultValue={data?.subjects?.map((subject:any)=>subject.id)}
           >
             {subjects.map((subject: { id: number; name: string }) => (
               <option value={subject.id} key={subject.id}>
@@ -191,6 +191,7 @@ const TeacherForm = ({
             </p>
           )}
         </div>
+        {typeof window !== "undefined" && (
         <CldUploadWidget
           uploadPreset="school"
           onSuccess={(result, { widget }) => {
@@ -210,6 +211,7 @@ const TeacherForm = ({
             );
           }}
         </CldUploadWidget>
+        )}
       </div>
       {state.error && (
         <span className="text-red-500">Something went wrong!</span>

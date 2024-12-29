@@ -7,7 +7,11 @@ import FormModal from "@/components/FormModal";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import prisma from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
-import { currentUserId, role } from "@/lib/utils";
+import { auth } from "@clerk/nextjs/server";
+
+const { userId, sessionClaims } = await auth();
+const role = (sessionClaims?.metadata as { role?: string })?.role;
+const currentUserId=userId;
 
 type ResultList = {
   id: number;
@@ -94,7 +98,7 @@ const ResultListPage = async ({
 }: {
   searchParams: { [key: string]: string | undefined };
 }) => {
-  const { page, ...queryParams } = searchParams;
+  const { page, ...queryParams } =await searchParams;
   const p = page ? parseInt(page) : 1;
 
   // URL  PARAMS CONDITION
