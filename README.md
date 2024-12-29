@@ -35,14 +35,16 @@ yarn install
 
 ***********Setup Environment Variables Create a .env.local file in the root directory and add the following:************
 
-DATABASE_URL="postgresql://developer_shahrukh:developer123456@localhost:5432/schooldb"
+# .env
 
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_bWlnaHR5LXNxdWlkLTY5LmNsZXJrLmFjY291bnRzLmRldiQ
-CLERK_SECRET_KEY=sk_test_ZmPe8c3XgBVSColnIXpMXulHdq5nKFwyQAmOzSiY8h
-NEXT_PUBLIC_CLERK_SIGN_IN_URL=/
-
-NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=developer-shahrukh
-NEXT_PUBLIC_CLOUDINARY_API_KEY=458378527766693 
+DATABASE_URL=                          <your-database-url>
+API_KEY=                               <your-api-key>
+SECRET_KEY=                            <your-secret-key>
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=     <Key>
+CLERK_SECRET_KEY=                      <Clerk secret key>
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=          /
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=     <cloudnary name>
+NEXT_PUBLIC_CLOUDINARY_API_KEY=        <Cloudnary key>
 
 *********Run Database Migrations************
 npx prisma migrate dev --name init
