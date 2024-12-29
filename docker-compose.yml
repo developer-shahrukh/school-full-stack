@@ -5,9 +5,9 @@ services:
     image: postgres:14.15-alpine3.21
     container_name: postgres_db
     environment:
-      POSTGRES_USER: developer_shahrukh
-      POSTGRES_PASSWORD: developer123456
-      POSTGRES_DB: schooldb
+      POSTGRES_USER: myusername
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydb
     ports:
       - '5432:5432'
     volumes:
@@ -19,7 +19,7 @@ services:
     ports:
       - '3000:3000'
     environment:
-      - DATABASE_URL: postgresql://developer_shahrukh:developer123456@localhost:5432/schooldb
+      - DATABASE_URL: postgresql://myusername:mypassword@localhost:5432/mydb
     depends_on:
       - postgres
 
