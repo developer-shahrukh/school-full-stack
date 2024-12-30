@@ -91,7 +91,7 @@ const renderRow = (item: StudentList) => (
   </tr>
 );
 
-const StudentsList = async ({
+const StudentsListPage = async ({
   searchParams,
 }: {
   searchParams: { [key: string]: string | undefined };
@@ -164,4 +164,4 @@ const StudentsList = async ({
   );
 };
 
-export default StudentsList;
+export default StudentsListPage;

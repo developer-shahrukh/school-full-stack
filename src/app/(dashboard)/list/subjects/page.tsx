@@ -55,7 +55,7 @@ const renderRow = (item: SubjectList) => (
   </tr>
 );
 
-const SubjectsList = async ({
+const SubjectsListPage = async ({
   searchParams,
 }: {
   searchParams: { [key: string]: string | undefined };
@@ -119,4 +119,4 @@ const SubjectsList = async ({
   );
 };
 
-export default SubjectsList;
+export default SubjectsListPage;

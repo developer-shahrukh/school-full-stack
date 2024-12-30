@@ -71,7 +71,7 @@ const renderRow = (item: ClassList) => (
   </tr>
 );
 
-const ClassesList = async ({
+const ClassesListPage = async ({
   searchParams,
 }: {
   searchParams: { [key: string]: string | undefined };
@@ -138,4 +138,4 @@ const ClassesList = async ({
   );
 };
 
-export default ClassesList;
+export default ClassesListPage;

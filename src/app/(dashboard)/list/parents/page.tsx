@@ -76,7 +76,7 @@ const renderRow = (item: ParentList) => (
   </tr>
 );
 
-const ParentsList = async ({
+const ParentsListPage = async ({
   searchParams,
 }: {
   searchParams: { [key: string]: string | undefined };
@@ -140,4 +140,4 @@ const ParentsList = async ({
   );
 };
 
-export default ParentsList;
+export default ParentsListPage;

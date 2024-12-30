@@ -6,7 +6,7 @@ import React from "react";
 import { RadialBar, RadialBarChart, ResponsiveContainer } from "recharts";
 
 
-function CountChart({ boys, girls }: { boys: number; girls: number }) {
+const CountChart=({ boys, girls }: { boys: number; girls: number })=> {
   
   const data = [
     {
