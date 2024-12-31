@@ -2,15 +2,16 @@ import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import FormModal from "@/components/FormModal";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import prisma from "@/lib/prisma";
 import { Announcement, Class, Prisma } from "@prisma/client";
-import { currentUserId, role } from "@/lib/utils";
+import { auth } from "@clerk/nextjs/server";
 
-
+const { userId, sessionClaims } = await auth();
+const role = (sessionClaims?.metadata as { role?: string })?.role;
+const currentUserId=userId;
 
 
 type AnnouncementList = Announcement & { class: Class };
@@ -65,7 +66,7 @@ const AnnouncementListPage = async ({
 }: {
   searchParams: { [key: string]: string | undefined };
 }) => {
-  const { page, ...queryParams } = searchParams;
+  const { page, ...queryParams } =await searchParams;
   const p = page ? parseInt(page) : 1;
 
   // URL  PARAMS CONDITION

@@ -8,7 +8,7 @@ const data = [
   { name: 'Group A', value: 8 , fill: "#FAE27C"},
 ]
 
-function Performance() {
+const Performance=()=> {
   return (
     <div className='bg-white p-4 rounded-md h-80 relative'>
         <div className='flex items-center justify-between'>
