@@ -1,9 +1,9 @@
+import React from 'react'
 
-
-const AttendanceListPage=()=> {
+const page=()=> {
   return (
     <div>page</div>
   )
 }
 
-export default AttendanceListPage;
+export default page

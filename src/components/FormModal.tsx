@@ -58,13 +58,13 @@ const ExamForm = dynamic(() => import("./forms/ExamForm"), {
 
 const forms: {
   [key: string]: (
+    setOpen: Dispatch<SetStateAction<boolean>>,
     type: "create" | "update",
     data?: any,
-    setOpen: Dispatch<SetStateAction<boolean>>,
     relatedData?: any
   ) => JSX.Element;
 } = {
-  teacher: (type, data, setOpen, relatedData) => (
+  teacher: (setOpen, type, data, relatedData) => (
     <TeacherForm
       type={type}
       data={data}
@@ -72,7 +72,7 @@ const forms: {
       relatedData={relatedData}
     />
   ),
-  student: (type, data, setOpen, relatedData) => (
+  student: (setOpen,type, data, relatedData) => (
     <StudentForm
       type={type}
       data={data}
@@ -80,7 +80,7 @@ const forms: {
       relatedData={relatedData}
     />
   ),
-  subject: (type, data, setOpen, relatedData) => (
+  subject: (setOpen,type, data, relatedData) => (
     <SubjectForm
       type={type}
       data={data}
@@ -88,7 +88,7 @@ const forms: {
       relatedData={relatedData}
     />
   ),
-  class: (type, data, setOpen, relatedData) => (
+  class: (setOpen,type, data, relatedData) => (
     <ClassForm
       type={type}
       data={data}
@@ -96,7 +96,7 @@ const forms: {
       relatedData={relatedData}
     />
   ),
-  Exam: (type, data, setOpen, relatedData) => (
+  Exam: (setOpen, type, data, relatedData) => (
     <ExamForm
       type={type}
       data={data}
@@ -122,7 +122,6 @@ const FormModal = ({
       : "bg-smPurple";
 
   const [open, setOpen] = useState(false);
-
   const Form = () => {
     const [state, formAction] = useActionState(deleteActionMap[table], {
       suceess: false,
@@ -150,7 +149,7 @@ const FormModal = ({
         </button>
       </form>
     ) : type === "create" || type === "update" ? (
-      forms[table](type, data, setOpen, relatedData)
+      forms[table](setOpen,type, data, relatedData)
     ) : (
       "Form not found!"
     );

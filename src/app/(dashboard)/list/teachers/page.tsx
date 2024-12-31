@@ -13,7 +13,7 @@ import { auth } from "@clerk/nextjs/server";
 
 const { userId, sessionClaims } = await auth();
 const role = (sessionClaims?.metadata as { role?: string })?.role;
-const currentUserId=userId;
+const currentUserId = userId;
 
 type TeacherList = Teacher & { subjects: Subject[] } & { classes: Class[] };
 
@@ -49,14 +49,14 @@ const columns = [
     className: "hidden lg:table-cell",
   },
   ...(role === "admin"
-      ? [
-          {
-            header: "Actions",
-            accessor: "actions",
-            className: [],
-          },
-        ]
-      : []),
+    ? [
+        {
+          header: "Actions",
+          accessor: "actions",
+          className: [],
+        },
+      ]
+    : []),
 ];
 
 const renderRow = (item: TeacherList) => (
@@ -108,38 +108,37 @@ const TeacherListPage = async ({
 }: {
   searchParams: { [key: string]: string | undefined };
 }) => {
-  const { page, ...queryParams } =await searchParams;
+  const { page, ...queryParams } = await searchParams;
   const p = page ? parseInt(page) : 1;
 
   // URL  PARAMS CONDITION
 
-  const query: Prisma.TeacherWhereInput={};
+  const query: Prisma.TeacherWhereInput = {};
 
   if (queryParams) {
     for (const [key, value] of Object.entries(queryParams)) {
       if (value !== undefined) {
         switch (key) {
           case "classId":
-            query.lessons= {
+            query.lessons = {
               some: {
-                classId: parseInt(value), 
-              }
+                classId: parseInt(value),
+              },
             };
             break;
-            case "search":
-              query.name={contains:value,mode:"insensitive"}
-              break;
+          case "search":
+            query.name = { contains: value, mode: "insensitive" };
+            break;
           default:
             break;
-          }
         }
       }
     }
-  
+  }
 
   const [data, count] = await prisma.$transaction([
     prisma.teacher.findMany({
-      where:query,
+      where: query,
       include: {
         subjects: true,
         classes: true,
@@ -147,7 +146,7 @@ const TeacherListPage = async ({
       take: ITEM_PER_PAGE,
       skip: ITEM_PER_PAGE * (p - 1),
     }),
-    prisma.teacher.count({where:query}),
+    prisma.teacher.count({ where: query }),
   ]);
   //console.log(data);
   //console.log(page);

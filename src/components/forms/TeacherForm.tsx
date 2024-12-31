@@ -28,6 +28,7 @@ const TeacherForm = ({
   setOpen: Dispatch<SetStateAction<boolean>>;
   relatedData?: any;
 }) => {
+  console.log(relatedData);
   const {
     register,
     handleSubmit,
@@ -49,7 +50,7 @@ const TeacherForm = ({
     console.log(data);
     formAction({...data, img:img?.secure_url});
   });
-
+  
   const router = useRouter();
 
   useEffect(() => {
@@ -60,7 +61,9 @@ const TeacherForm = ({
     }
   }, [state, router,type,setOpen]);
 
-  const { subjects=[] } = relatedData || {};
+  
+  const { subject} = relatedData;
+  
   return (
     <form className="flex flex-col gap-8" onSubmit={onSubmit}>
       <h1 className="text-xl font-semibold">
@@ -177,11 +180,11 @@ const TeacherForm = ({
             multiple
             className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
             {...register("subjects")}
-            defaultValue={data?.subjects?.map((subject:any)=>subject.id)}
+            defaultValue={data?.subject}
           >
-            {subjects.map((subject: { id: number; name: string }) => (
-              <option value={subject.id} key={subject.id}>
-                {subject.name}
+            {subject.map((sub: { id: number; name: string }) => (
+              <option value={sub.id} key={sub.id}>
+                {sub.name}
               </option>
             ))}
           </select>
