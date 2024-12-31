@@ -1,5 +1,16 @@
 "use client";
 
+<<<<<<< HEAD
+import { deleteClass, deleteSubject } from "@/lib/actions";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { Dispatch, JSX, SetStateAction, useActionState, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { FormContainerProps } from "./FormContainer";
+import { useFormState } from "react-dom";
+
+=======
 import {
   deleteClass,
   deleteExam,
@@ -21,12 +32,18 @@ import {
 import { toast } from "react-toastify";
 import { FormContainerProps } from "./FormContainer";
 import { useFormState } from "react-dom";
+>>>>>>> db06b6a9144fb24530a992b8c4121255798991b4
 
 const deleteActionMap = {
   subject: deleteSubject,
   class: deleteClass,
+<<<<<<< HEAD
+  teacher: deleteSubject,
+  student: deleteSubject,
+=======
   teacher: deleteTeacher,
   student: deleteStudent,
+>>>>>>> db06b6a9144fb24530a992b8c4121255798991b4
   parent: deleteSubject,
   lesson: deleteSubject,
   exam: deleteExam,
@@ -52,9 +69,12 @@ const SubjectForm = dynamic(() => import("./forms/SubjectForm"), {
 const ClassForm = dynamic(() => import("./forms/ClassForm"), {
   loading: () => <h1>Loading...</h1>,
 });
+<<<<<<< HEAD
+=======
 const ExamForm = dynamic(() => import("./forms/ExamForm"), {
   loading: () => <h1>Loading...</h1>,
 });
+>>>>>>> db06b6a9144fb24530a992b8c4121255798991b4
 
 const forms: {
   [key: string]: (
@@ -103,6 +123,9 @@ const forms: {
       setOpen={setOpen}
       relatedData={relatedData}
     />
+  ),
+  class: (type, data, setOpen, relatedData) => (
+    <ClassForm type={type} data={data} setOpen={setOpen} relatedData={relatedData}/>
   ),
 };
 

@@ -17,6 +17,8 @@ export const classSchema = z.object({
 });
 
 export type ClassSchema = z.infer<typeof classSchema>;
+<<<<<<< HEAD
+=======
 
 export const teacherSchema = z.object({
   id: z.string().optional(),
@@ -89,3 +91,4 @@ export const examSchema = z.object({
 });
 
 export type ExamSchema = z.infer<typeof examSchema>;
+>>>>>>> db06b6a9144fb24530a992b8c4121255798991b4

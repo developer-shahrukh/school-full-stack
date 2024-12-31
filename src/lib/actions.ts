@@ -2,6 +2,10 @@
 
 import { revalidatePath } from "next/cache";
 import prisma from "./prisma";
+<<<<<<< HEAD
+import { SubjectSchema } from "./formValidationSchemas";
+import { ClassSchema } from "./formValidationSchemas";
+=======
 import {
   ClassSchema,
   ExamSchema,
@@ -10,6 +14,7 @@ import {
   TeacherSchema,
 } from "./formValidationSchemas";
 import { auth, clerkClient } from "@clerk/nextjs/server";
+>>>>>>> db06b6a9144fb24530a992b8c4121255798991b4
 
 type CurrentState = { success: boolean; error: boolean };
 
@@ -78,6 +83,10 @@ export const deleteSubject = async (
   }
 };
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> db06b6a9144fb24530a992b8c4121255798991b4
 export const createClass = async (
   currentState: CurrentState,
   data: ClassSchema
@@ -133,6 +142,9 @@ export const deleteClass = async (
     console.log(err);
     return { success: false, error: true };
   }
+<<<<<<< HEAD
+};
+=======
 };
 
 export const createTeacher = async (
@@ -464,3 +476,4 @@ export const deleteExam = async (
     return { success: false, error: true };
   }
 };
+>>>>>>> db06b6a9144fb24530a992b8c4121255798991b4

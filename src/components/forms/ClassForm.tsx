@@ -4,7 +4,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import InputField from "../InputField";
 import { useFormState } from "react-dom";
+<<<<<<< HEAD
+import { Dispatch, SetStateAction, useEffect } from "react";
+=======
 import { Dispatch, SetStateAction, useActionState, useEffect } from "react";
+>>>>>>> db06b6a9144fb24530a992b8c4121255798991b4
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { classSchema, ClassSchema} from "@/lib/formValidationSchemas";
@@ -33,7 +37,11 @@ const ClassForm = ({
 
   // After REACT 19 IT'LL BE USEACTIONSTATE
 
+<<<<<<< HEAD
+  const [state, formAction] = useFormState(
+=======
   const [state, formAction] = useActionState(
+>>>>>>> db06b6a9144fb24530a992b8c4121255798991b4
     type === "create" ? createClass : updateClass,
     {
       success: false,
@@ -97,7 +105,11 @@ const ClassForm = ({
           >
             {teachers.map(
               (teacher: { id: string; name: string; surname: string }) => (
+<<<<<<< HEAD
+                <option value={teacher.id} key={teacher.id}>
+=======
                 <option value={teacher.id} key={teacher.id} selected={data && teacher.id===data.supervisorId}>
+>>>>>>> db06b6a9144fb24530a992b8c4121255798991b4
                   {teacher.name + " " + teacher.surname}
                 </option>
               )
@@ -118,7 +130,11 @@ const ClassForm = ({
           >
             {grades.map(
               (grade: { id: number; level:number }) => (
+<<<<<<< HEAD
+                <option value={grade.id} key={grade.id}>
+=======
                 <option value={grade.id} key={grade.id} selected={data && grade.id===data.gradeId}>
+>>>>>>> db06b6a9144fb24530a992b8c4121255798991b4
                   {grade.level}
                 </option>
               )

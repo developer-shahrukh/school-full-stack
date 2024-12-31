@@ -20,6 +20,17 @@ import { createStudent, updateStudent } from "@/lib/actions";
 
 const StudentForm = ({
   type,
+<<<<<<< HEAD
+ data,
+ setOpen,
+ relatedData,
+
+}: {
+ type: "create" | "update";
+ data?: any;
+ setOpen: Dispatch<SetStateAction<boolean>>;
+ relatedData?: any;
+=======
   data,
   setOpen,
   relatedData,
@@ -28,6 +39,7 @@ const StudentForm = ({
   data?: any;
   setOpen: Dispatch<SetStateAction<boolean>>;
   relatedData?: any;
+>>>>>>> db06b6a9144fb24530a992b8c4121255798991b4
 }) => {
   const {
     register,

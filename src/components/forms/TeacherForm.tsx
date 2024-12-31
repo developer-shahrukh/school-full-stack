@@ -17,8 +17,19 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { CldUploadWidget } from "next-cloudinary";
 
-const TeacherForm = ({
+const TeacherForm =({
   type,
+<<<<<<< HEAD
+ data,
+ setOpen,
+ relatedData,
+
+}: {
+ type: "create" | "update";
+ data?: any;
+ setOpen: Dispatch<SetStateAction<boolean>>;
+ relatedData?: any;
+=======
   data,
   setOpen,
   relatedData,
@@ -27,6 +38,7 @@ const TeacherForm = ({
   data?: any;
   setOpen: Dispatch<SetStateAction<boolean>>;
   relatedData?: any;
+>>>>>>> db06b6a9144fb24530a992b8c4121255798991b4
 }) => {
   console.log(relatedData);
   const {
