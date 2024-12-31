@@ -31,6 +31,8 @@ Here are some screenshots of the application:
 
 //TODO ADD SCREENSHOTS HERE
 
+![Alt Admin Dashboard](Screenshorts/Add new student.png)
+
 ## YouTube Demo
 
 Check out the live demo of the application on YouTube:
