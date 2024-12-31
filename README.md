@@ -25,6 +25,17 @@ A feature-rich, full-stack application designed to streamline school operations.
 ### Deployment:
 - **Docker**: For containerized deployment ensuring consistency across environments.
 
+## Screenshots
+
+Here are some screenshots of the application:
+
+//TODO ADD SCREENSHOTS HERE
+
+## YouTube Demo
+
+Check out the live demo of the application on YouTube:
+[School Management Application Demo](https://www.youtube.com)
+
 ## Installation
 
 1. **Clone the repository:**
