@@ -3,24 +3,24 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import InputField from "../InputField";
+import {
+  classSchema,
+  ClassSchema,
+} from "@/lib/formValidationSchemas";
+import {
+  createClass,
+  updateClass,
+} from "@/lib/actions";
 import { useFormState } from "react-dom";
-<<<<<<< HEAD
 import { Dispatch, SetStateAction, useEffect } from "react";
-=======
-import { Dispatch, SetStateAction, useActionState, useEffect } from "react";
->>>>>>> db06b6a9144fb24530a992b8c4121255798991b4
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { classSchema, ClassSchema} from "@/lib/formValidationSchemas";
-import { createClass, updateClass } from "@/lib/actions";
-
 
 const ClassForm = ({
-   type,
+  type,
   data,
   setOpen,
   relatedData,
-
 }: {
   type: "create" | "update";
   data?: any;
@@ -35,13 +35,9 @@ const ClassForm = ({
     resolver: zodResolver(classSchema),
   });
 
-  // After REACT 19 IT'LL BE USEACTIONSTATE
+  // AFTER REACT 19 IT'LL BE USEACTIONSTATE
 
-<<<<<<< HEAD
   const [state, formAction] = useFormState(
-=======
-  const [state, formAction] = useActionState(
->>>>>>> db06b6a9144fb24530a992b8c4121255798991b4
     type === "create" ? createClass : updateClass,
     {
       success: false,
@@ -58,11 +54,11 @@ const ClassForm = ({
 
   useEffect(() => {
     if (state.success) {
-      toast(`Class has been ${type === "create" ? "created" : "updated"}!`);
+      toast(`Subject has been ${type === "create" ? "created" : "updated"}!`);
       setOpen(false);
       router.refresh();
     }
-  }, [state,setOpen,router]);
+  }, [state, router, type, setOpen]);
 
   const { teachers, grades } = relatedData;
 
@@ -71,6 +67,7 @@ const ClassForm = ({
       <h1 className="text-xl font-semibold">
         {type === "create" ? "Create a new class" : "Update the class"}
       </h1>
+
       <div className="flex justify-between flex-wrap gap-4">
         <InputField
           label="Class name"
@@ -79,7 +76,7 @@ const ClassForm = ({
           register={register}
           error={errors?.name}
         />
-         <InputField
+        <InputField
           label="Capacity"
           name="capacity"
           defaultValue={data?.capacity}
@@ -105,11 +102,11 @@ const ClassForm = ({
           >
             {teachers.map(
               (teacher: { id: string; name: string; surname: string }) => (
-<<<<<<< HEAD
-                <option value={teacher.id} key={teacher.id}>
-=======
-                <option value={teacher.id} key={teacher.id} selected={data && teacher.id===data.supervisorId}>
->>>>>>> db06b6a9144fb24530a992b8c4121255798991b4
+                <option
+                  value={teacher.id}
+                  key={teacher.id}
+                  selected={data && teacher.id === data.supervisorId}
+                >
                   {teacher.name + " " + teacher.surname}
                 </option>
               )
@@ -122,23 +119,21 @@ const ClassForm = ({
           )}
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Grades</label>
+          <label className="text-xs text-gray-500">Grade</label>
           <select
             className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
             {...register("gradeId")}
-            defaultValue={data?.grades}
+            defaultValue={data?.gradeId}
           >
-            {grades.map(
-              (grade: { id: number; level:number }) => (
-<<<<<<< HEAD
-                <option value={grade.id} key={grade.id}>
-=======
-                <option value={grade.id} key={grade.id} selected={data && grade.id===data.gradeId}>
->>>>>>> db06b6a9144fb24530a992b8c4121255798991b4
-                  {grade.level}
-                </option>
-              )
-            )}
+            {grades.map((grade: { id: number; level: number }) => (
+              <option
+                value={grade.id}
+                key={grade.id}
+                selected={data && grade.id === data.gradeId}
+              >
+                {grade.level}
+              </option>
+            ))}
           </select>
           {errors.gradeId?.message && (
             <p className="text-xs text-red-400">
