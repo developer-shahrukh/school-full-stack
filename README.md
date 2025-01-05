@@ -31,16 +31,16 @@ Here are some screenshots of the application:
 
 //TODO ADD SCREENSHOTS HERE
 ![Alt Admin Dashboard](./assets/Login.png)
-![Alt Admin Dashboard](./assests/Admin.png)
-![Alt Admin Dashboard](assests/Studentdashboard.png)
-![Alt Admin Dashboard](assests/Teacherdashboard.png)
-![Alt Admin Dashboard](assests/Parents.png)
-![Alt Admin Dashboard](assests/Studentdetails.png)
-![Alt Admin Dashboard](assests/Addstudents.png)
-![Alt Admin Dashboard](assests/Teacherdetails.png)
-![Alt Admin Dashboard](assests/Subjectupdate.png)
-![Alt Admin Dashboard](assests/Students.png)
-![Alt Admin Dashboard](assests/Teachers.png)
+![Alt Admin Dashboard](./assets/Admin.png)
+![Alt Admin Dashboard](./assets/Studentdashboard.png)
+![Alt Admin Dashboard](./assets/Teacherdashboard.png)
+![Alt Admin Dashboard](./assets/Parents.png)
+![Alt Admin Dashboard](./assets/Studentdetails.png)
+![Alt Admin Dashboard](./assets/Addstudents.png)
+![Alt Admin Dashboard](./assets/Teacherdetails.png)
+![Alt Admin Dashboard](./assets/Subjectupdate.png)
+![Alt Admin Dashboard](./assets/Students.png)
+![Alt Admin Dashboard](./assets/Teachers.png)
 
 ## YouTube Demo
 
