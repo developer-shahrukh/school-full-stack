@@ -30,7 +30,7 @@ A feature-rich, full-stack application designed to streamline school operations.
 Here are some screenshots of the application:
 
 //TODO ADD SCREENSHOTS HERE
-![Alt Admin Dashboard](./assests/Login.png)
+![Alt Admin Dashboard](./assets/Login.png)
 ![Alt Admin Dashboard](./assests/Admin.png)
 ![Alt Admin Dashboard](assests/Studentdashboard.png)
 ![Alt Admin Dashboard](assests/Teacherdashboard.png)
