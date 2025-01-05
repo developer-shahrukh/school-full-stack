@@ -61,10 +61,10 @@ const FormContainer = async ({ table, type, data, id }: FormContainerProps) => {
         relatedData = { classes: studentClasses, grades: studentGrades };
         break;
       case "parent":
-        const studentId = await prisma.student.findMany({
+        const students = await prisma.student.findMany({
           select: { id: true, name: true },
         });
-        relatedData = { students: studentId };
+        relatedData = { students: students };
         break;
       case "exam":
         const examLessons = await prisma.lesson.findMany({
@@ -80,7 +80,6 @@ const FormContainer = async ({ table, type, data, id }: FormContainerProps) => {
         break;
     }
   }
-
   return (
     <div className="">
       <FormModal

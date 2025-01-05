@@ -4,10 +4,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import InputField from "../InputField";
 import Image from "next/image";
-import { Dispatch, SetStateAction, useActionState, useEffect, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  startTransition,
+  useActionState,
+  useEffect,
+  useState,
+} from "react";
 import { parentSchema, ParentSchema } from "@/lib/formValidationSchemas";
 import { useFormState } from "react-dom";
-import { createTeacher, updateTeacher } from "@/lib/actions";
+import { createParent, createTeacher, updateParent, updateTeacher } from "@/lib/actions";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { CldUploadWidget } from "next-cloudinary";
@@ -33,7 +40,7 @@ const ParentForm = ({
   });
 
   const [state, formAction] = useActionState(
-    type === "create" ? createTeacher : updateTeacher,
+    type === "create" ? createParent : updateParent,
     {
       success: false,
       error: false,
@@ -41,10 +48,11 @@ const ParentForm = ({
   );
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
-    formAction(data);
+    startTransition(() => {
+      formAction(data);
+    });
   });
-  
+
   const router = useRouter();
 
   useEffect(() => {
@@ -54,14 +62,13 @@ const ParentForm = ({
       router.refresh();
     }
   }, [state, router, type, setOpen]);
-  
 
-  const { students } = relatedData;
+  const { students } = relatedData || {};
 
   return (
     <form className="flex flex-col gap-8" onSubmit={onSubmit}>
       <h1 className="text-xl font-semibold">
-        {type === "create" ? "Create a new teacher" : "Update the teacher"}
+        {type === "create" ? "Create a new parent" : "Update the parent"}
       </h1>
       <span className="text-xs text-gray-400 font-medium">
         Authentication Information
@@ -140,11 +147,12 @@ const ParentForm = ({
             {...register("students")}
             defaultValue={data?.students}
           >
-            {students.map((student: { id: number; name: string }) => (
-              <option value={student.id} key={student.id}>
-                {student.name} - {student.id}
-              </option>
-            ))}
+            {students &&
+              students.map((student: { id: number; name: string }) => (
+                <option value={student.id} key={student.id}>
+                  {student.name} - {student.id}
+                </option>
+              ))}
           </select>
           {errors.students?.message && (
             <p className="text-xs text-red-400">
