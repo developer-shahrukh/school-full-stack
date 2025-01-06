@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import InputField from "../InputField";
 import Image from "next/image";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, startTransition, useEffect, useState } from "react";
 import { teacherSchema, TeacherSchema } from "@/lib/formValidationSchemas";
 import { useFormState } from "react-dom";
 import { createTeacher, updateTeacher } from "@/lib/actions";
@@ -43,7 +43,9 @@ const TeacherForm = ({
 
   const onSubmit = handleSubmit((data) => {
     //console.log(data);
+    startTransition(()=>{
     formAction({ ...data, img: img?.secure_url });
+  });
   });
 
   const router = useRouter();

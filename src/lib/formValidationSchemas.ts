@@ -114,3 +114,16 @@ export const parentSchema = z.object({
  });
 
 export type ParentSchema = z.infer<typeof parentSchema>;
+
+
+export const lessonSchema = z.object({
+  id: z.coerce.number().optional(),
+  name: z.string().min(1, { message: "Name is required!" }),
+  day: z.string().min(1, {message: "Day is required!"}),
+  startTime: z.coerce.date({ message: "Start time is required!" }),
+  endTime: z.coerce.date({ message: "End time is required!" }),
+  subjectId: z.coerce.number().min(1, { message: "Subject is required!" }),
+  classId: z.coerce.number({ message: "Class is required!" }),
+  teacherId: z.coerce.string().min(1, {message: "Teacher is required!"}),
+});
+export type LessonSchema = z.infer<typeof lessonSchema>;
