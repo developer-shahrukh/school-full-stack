@@ -618,12 +618,13 @@ export const createLesson = async (
 ) => {
   try {
     await prisma.lesson.create({
-      data: {
-        name: data.name,
-        teachers: {
-          connect: data.teachers.map((teacherId) => ({ id: teacherId })),
-        },
-      },
+     name:data.name,
+     day:data.day,
+     startTime:data.startTime,
+     endTime:data.endTime,
+     subjectId:data.subjectId,
+     classId:data.classId,
+     teacherId:data.teacherId,
     });
 
     // revalidatePath("/list/lesson");

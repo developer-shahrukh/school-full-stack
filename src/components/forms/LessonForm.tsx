@@ -11,7 +11,7 @@ import {
   updateLesson,
 } from "@/lib/actions";
 import { useFormState } from "react-dom";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useActionState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
@@ -36,7 +36,7 @@ const LessonForm = ({
 
   // AFTER REACT 19 IT'LL BE USEACTIONSTATE
 
-  const [state, formAction] = useFormState(
+  const [state, formAction] = useActionState(
     type === "create" ? createLesson : updateLesson,
     {
       success: false,
@@ -59,12 +59,21 @@ const LessonForm = ({
     }
   }, [state, router, type, setOpen]);
 
-  const { teachers,subjects,classes } = relatedData;
+  const { teachers, subjects, classes } = relatedData;
+
+  console.log(relatedData);
+  const Day={
+    Monday : "Monday",
+    Tuesday : "Tuesday",
+    Wednesday: "Wednesday",
+    Thursday : "Thursday",
+    Friday : "Friday",
+    }
 
   return (
     <form className="flex flex-col gap-8" onSubmit={onSubmit}>
       <h1 className="text-xl font-semibold">
-        {type === "create" ? "Create a new exam" : "Update the exam"}
+        {type === "create" ? "Create a new lesson" : "Update the lesson"}
       </h1>
 
       <div className="flex justify-between flex-wrap gap-4">
@@ -74,13 +83,6 @@ const LessonForm = ({
           defaultValue={data?.name}
           register={register}
           error={errors?.name}
-        />
-        <InputField
-          label="Day"
-          name="day"
-          defaultValue={data?.day}
-          register={register}
-          error={errors?.day}
         />
         <InputField
           label="Start Date"
@@ -109,17 +111,41 @@ const LessonForm = ({
           />
         )}
         <div className="flex flex-col gap-2 w-full md:w-1/4">
+          <label className="text-xs text-gray-500">Day</label>
+          <select
+            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+            defaultValue={data?.day || ""}
+            {...register("day")}
+          >
+            <option value="" disabled>
+              Select a Day
+            </option>
+            {Object.values(Day).map((day) => (
+              <option key={day} value={day}>
+                {day}
+              </option>
+            ))}
+          </select>
+          {errors.day?.message && (
+            <p className="text-xs text-red-400">
+              {errors.day.message.toString()}
+            </p>
+          )}
+        </div>
+        <div className="flex flex-col gap-2 w-full md:w-1/4">
           <label className="text-xs text-gray-500">Teacher</label>
           <select
             className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
             {...register("teacherId")}
             defaultValue={data?.teachers}
           >
-            {teachers.map((teacher: { id: number; name: string; surname:string }) => (
-              <option value={teacher.id} key={teacher.id}>
-                {teacher.name}
-              </option>
-            ))}
+            {teachers.map(
+              (teacher: { id: number; name: string; surname: string }) => (
+                <option value={teacher.id} key={teacher.id}>
+                  {teacher.name}
+                </option>
+              )
+            )}
           </select>
           {errors.teacherId?.message && (
             <p className="text-xs text-red-400">
@@ -134,7 +160,7 @@ const LessonForm = ({
             {...register("subjectId")}
             defaultValue={data?.subjects}
           >
-            {subjects.map((subject: { id: number; name: string;}) => (
+            {subjects.map((subject: { id: number; name: string }) => (
               <option value={subject.id} key={subject.id}>
                 {subject.name}
               </option>
@@ -153,7 +179,7 @@ const LessonForm = ({
             {...register("classId")}
             defaultValue={data?.classes}
           >
-            {classes.map((classId: { id: number; name: string;}) => (
+            {classes.map((classId: { id: number; name: string }) => (
               <option value={classId.id} key={classId.id}>
                 {classId.name}
               </option>
