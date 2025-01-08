@@ -91,8 +91,11 @@ const ClassForm = ({
           <select
             className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
             {...register("supervisorId")}
-            defaultValue={data?.teachers}
+            defaultValue={type==="create" ? data?.teachers || "" : data?.teachers}
           >
+            <option value="" disabled>
+              Select a Teacher
+            </option>
             {teachers.map(
               (teacher: { id: string; name: string; surname: string }) => (
                 <option
@@ -116,8 +119,11 @@ const ClassForm = ({
           <select
             className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
             {...register("gradeId")}
-            defaultValue={data?.gradeId}
+            defaultValue={type==="create" ? data?.gradeId || "" : data?.gradeId}
           >
+            <option value="" disabled>
+              Select Grade
+            </option>
             {grades.map((grade: { id: number; level: number }) => (
               <option
                 value={grade.id}

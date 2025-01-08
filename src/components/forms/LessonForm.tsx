@@ -62,13 +62,13 @@ const LessonForm = ({
   const { teachers, subjects, classes } = relatedData;
 
   console.log(relatedData);
-  const Day={
-    Monday : "Monday",
-    Tuesday : "Tuesday",
+  const Day = {
+    Monday: "Monday",
+    Tuesday: "Tuesday",
     Wednesday: "Wednesday",
-    Thursday : "Thursday",
-    Friday : "Friday",
-    }
+    Thursday: "Thursday",
+    Friday: "Friday",
+  };
 
   return (
     <form className="flex flex-col gap-8" onSubmit={onSubmit}>
@@ -114,14 +114,15 @@ const LessonForm = ({
           <label className="text-xs text-gray-500">Day</label>
           <select
             className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
-            defaultValue={data?.day || ""}
+            defaultValue={type==="create" ? data?.day || "" : data?.day}
             {...register("day")}
           >
             <option value="" disabled>
               Select a Day
             </option>
             {Object.values(Day).map((day) => (
-              <option key={day} value={day}>
+              <option key={day} value={day}
+              >
                 {day}
               </option>
             ))}
@@ -137,11 +138,18 @@ const LessonForm = ({
           <select
             className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
             {...register("teacherId")}
-            defaultValue={data?.teachers}
+            defaultValue={type==="create" ? data?.teachers || "" : data?.teachers}
           >
+            <option value="" disabled>
+              Select a Teacher
+            </option>
             {teachers.map(
               (teacher: { id: number; name: string; surname: string }) => (
-                <option value={teacher.id} key={teacher.id}>
+                <option
+                  value={teacher.id}
+                  key={teacher.id}
+                  selected={data && teacher.id === data.teacherId}
+                >
                   {teacher.name}
                 </option>
               )
@@ -158,10 +166,15 @@ const LessonForm = ({
           <select
             className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
             {...register("subjectId")}
-            defaultValue={data?.subjects}
+            defaultValue={type==="create" ? data?.subjects || "" : data?.subjects}
           >
+            <option value="" disabled>
+              Select a Subject
+            </option>
             {subjects.map((subject: { id: number; name: string }) => (
-              <option value={subject.id} key={subject.id}>
+              <option value={subject.id} key={subject.id}
+              selected={data && subject.id === data.subjectId}
+              >
                 {subject.name}
               </option>
             ))}
@@ -177,10 +190,15 @@ const LessonForm = ({
           <select
             className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
             {...register("classId")}
-            defaultValue={data?.classes}
+            defaultValue={type==="create" ? data?.classes || "": data?.classes}
           >
+            <option value="" disabled>
+              Select a Class
+            </option>
             {classes.map((classId: { id: number; name: string }) => (
-              <option value={classId.id} key={classId.id}>
+              <option value={classId.id} key={classId.id}
+              selected={data && classId.id === data.classId}
+              >
                 {classId.name}
               </option>
             ))}

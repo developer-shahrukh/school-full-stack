@@ -105,10 +105,13 @@ const ExamForm = ({
         <div className="flex flex-col gap-2 w-full md:w-1/4">
           <label className="text-xs text-gray-500">Lesson</label>
           <select
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full max-h-20 overflow-y-auto"
             {...register("lessonId")}
-            defaultValue={data?.teachers}
+            defaultValue={type==="create" ? data?.teachers || "" : data?.teachers}
           >
+            <option value="" disabled>
+              Select a Lesson
+            </option>
             {lessons.map((lesson: { id: number; name: string }) => (
               <option value={lesson.id} key={lesson.id}>
                 {lesson.name}
