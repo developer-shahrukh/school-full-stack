@@ -69,6 +69,7 @@ const LessonForm = ({
     Thursday: "Thursday",
     Friday: "Friday",
   };
+  console.log(Day);
 
   return (
     <form className="flex flex-col gap-8" onSubmit={onSubmit}>
