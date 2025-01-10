@@ -9,6 +9,7 @@ import { Assignment, Class, Prisma, Subject, Teacher } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import { auth } from "@clerk/nextjs/server";
+import FormContainer from "@/components/FormContainer";
 
 const { userId, sessionClaims } = await auth();
 const role = (sessionClaims?.metadata as { role?: string })?.role;
@@ -66,8 +67,8 @@ const renderRow = (item: AssignmentList) => (
       <div className="flex items-center gap-2">
         {(role === "admin" || role === "teacher") && (
           <>
-            <FormModal table="assignment" type="update" data={item} />
-            <FormModal table="assignment" type="delete" id={item.id} />
+            <FormContainer table="assignment" type="update" data={item} />
+            <FormContainer table="assignment" type="delete" id={item.id} />
           </>
         )}
       </div>
@@ -171,7 +172,7 @@ const AssignmentsListPage = async ({
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-smYellow">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
-            <FormModal table="assignment" type="create" />
+            <FormContainer table="assignment" type="create" />
           </div>
         </div>
       </div>

@@ -1,8 +1,11 @@
 "use client";
 
 import {
+  deleteAnnouncement,
+  deleteAssignment,
   deleteClass,
   deleteExam,
+  deleteLesson,
   deleteParent,
   deleteStudent,
   deleteSubject,
@@ -27,14 +30,14 @@ const deleteActionMap = {
   teacher: deleteTeacher,
   student: deleteStudent,
   exam: deleteExam,
-  // TODO: OTHER DELETE ACTIONS
+  assignment: deleteAssignment,
+  announcement: deleteAnnouncement,
   parent: deleteParent,
-  lesson: deleteSubject,
-  assignment: deleteSubject,
+  lesson: deleteLesson,
+  event: deleteSubject,
+  // TODO: OTHER DELETE ACTIONS
   result: deleteSubject,
   attendance: deleteSubject,
-  event: deleteSubject,
-  announcement: deleteSubject,
 };
 
 // USE LAZY LOADING
@@ -61,6 +64,12 @@ const ParentForm = dynamic(() => import("./forms/ParentForm"), {
   loading: () => <h1>Loading...</h1>,
 });
 const LessonForm = dynamic(() => import("./forms/LessonForm"), {
+  loading: () => <h1>Loading...</h1>,
+});
+const AssignmentForm = dynamic(() => import("./forms/AssignmentForm"), {
+  loading: () => <h1>Loading...</h1>,
+});
+const AnnouncementForm = dynamic(() => import("./forms/AnnouncementForm"), {
   loading: () => <h1>Loading...</h1>,
 });
 // TODO: OTHER FORMS
@@ -114,6 +123,15 @@ const forms: {
     />
     // TODO OTHER LIST ITEMS
   ),
+  assignment: (setOpen, type, data, relatedData) => (
+    <AssignmentForm
+      type={type}
+      data={data}
+      setOpen={setOpen}
+      relatedData={relatedData}
+    />
+    // TODO OTHER LIST ITEMS
+  ),
   parent: (setOpen, type, data, relatedData) => (
     <ParentForm
       type={type}
@@ -124,6 +142,14 @@ const forms: {
   ),
   lesson: (setOpen, type, data, relatedData) => (
     <LessonForm
+      type={type}
+      data={data}
+      setOpen={setOpen}
+      relatedData={relatedData}
+    />
+  ),
+  announcement: (setOpen, type, data, relatedData) => (
+    <AnnouncementForm
       type={type}
       data={data}
       setOpen={setOpen}
