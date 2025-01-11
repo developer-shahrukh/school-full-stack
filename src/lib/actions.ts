@@ -814,8 +814,8 @@ export const createAnnouncement = async (
     await prisma.announcement.create({
       data: {
         title: data.title,
-        discription: data.discription,
-        date: data.date,
+        description: data.description,
+        date: data.startDate,
         lessonId: data.lessonId,
       },
     });
@@ -855,7 +855,7 @@ export const updateAnnouncement = async (
       },
       data: {
         title: data.title,
-        discription:data.discription,
+        description:data.description,
         date: data.date,
         lessonId: data.lessonId,
       },

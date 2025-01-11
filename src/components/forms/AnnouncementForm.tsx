@@ -89,12 +89,12 @@ const AnnouncementForm = ({
           register={register}
           error={errors?.startDate}
         />
-        <InputField
-          label="Discription"
-          name="discription"
-          defaultValue={data?.discription}
+         <InputField
+          label="Description"
+          name="description"
+          defaultValue={data?.description}
           register={register}
-          error={errors?.discription}
+          error={errors?.description}
         />
         {data && (
           <InputField
@@ -106,6 +106,7 @@ const AnnouncementForm = ({
             hidden
           />
         )}
+       
         <div className="flex flex-col gap-2 w-full md:w-1/4">
           <label className="text-xs text-gray-500">Class</label>
           <select
