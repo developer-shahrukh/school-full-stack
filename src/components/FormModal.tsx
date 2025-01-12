@@ -4,9 +4,11 @@ import {
   deleteAnnouncement,
   deleteAssignment,
   deleteClass,
+  deleteEvent,
   deleteExam,
   deleteLesson,
   deleteParent,
+  deleteResult,
   deleteStudent,
   deleteSubject,
   deleteTeacher,
@@ -34,9 +36,9 @@ const deleteActionMap = {
   announcement: deleteAnnouncement,
   parent: deleteParent,
   lesson: deleteLesson,
-  event: deleteSubject,
+  event: deleteEvent,
+  result: deleteResult,
   // TODO: OTHER DELETE ACTIONS
-  result: deleteSubject,
   attendance: deleteSubject,
 };
 
@@ -70,6 +72,12 @@ const AssignmentForm = dynamic(() => import("./forms/AssignmentForm"), {
   loading: () => <h1>Loading...</h1>,
 });
 const AnnouncementForm = dynamic(() => import("./forms/AnnouncementForm"), {
+  loading: () => <h1>Loading...</h1>,
+});
+const EventForm = dynamic(() => import("./forms/EventForm"), {
+  loading: () => <h1>Loading...</h1>,
+});
+const ResultForm = dynamic(() => import("./forms/ResultForm"), {
   loading: () => <h1>Loading...</h1>,
 });
 // TODO: OTHER FORMS
@@ -156,6 +164,22 @@ const forms: {
       relatedData={relatedData}
     />
   ),
+  event: (setOpen, type, data, relatedData) => (
+    <EventForm
+      type={type}
+      data={data}
+      setOpen={setOpen}
+      relatedData={relatedData}
+    />
+  ),
+  result: (setOpen, type, data, relatedData) => (
+    <ResultForm
+      type={type}
+      data={data}
+      setOpen={setOpen}
+      relatedData={relatedData}
+    />
+  ),
 };
 
 const FormModal = ({
@@ -190,7 +214,7 @@ const FormModal = ({
         router.refresh();
       }
     }, [state, router]);
-
+    
     return type === "delete" && id ? (
       <form action={formAction} className="p-4 flex flex-col gap-4">
         <input type="text | number" name="id" value={id} hidden />

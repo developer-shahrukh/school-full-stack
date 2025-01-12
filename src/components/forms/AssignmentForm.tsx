@@ -7,7 +7,10 @@ import { useFormState } from "react-dom";
 import { Dispatch, SetStateAction, useActionState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { assignmentSchema, AssignmentSchema } from "@/lib/formValidationSchemas";
+import {
+  assignmentSchema,
+  AssignmentSchema,
+} from "@/lib/formValidationSchemas";
 import { createAssignment, updateAssignment } from "@/lib/actions";
 
 const AssignmentForm = ({
@@ -40,7 +43,6 @@ const AssignmentForm = ({
   );
 
   const onSubmit = handleSubmit((data) => {
-    //console.log(data);
     formAction(data);
   });
 
@@ -48,7 +50,9 @@ const AssignmentForm = ({
 
   useEffect(() => {
     if (state.success) {
-      toast(`Assignment has been ${type === "create" ? "created" : "updated"}!`);
+      toast(
+        `Assignment has been ${type === "create" ? "created" : "updated"}!`
+      );
       setOpen(false);
       router.refresh();
     }
@@ -58,7 +62,9 @@ const AssignmentForm = ({
   return (
     <form className="flex flex-col gap-8" onSubmit={onSubmit}>
       <h1 className="text-xl font-semibold">
-        {type === "create" ? "Create a new assignment" : "Update the assignment"}
+        {type === "create"
+          ? "Create a new assignment"
+          : "Update the assignment"}
       </h1>
 
       <div className="flex justify-between flex-wrap gap-4">
@@ -100,7 +106,9 @@ const AssignmentForm = ({
           <select
             className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full max-h-20 overflow-y-auto"
             {...register("lessonId")}
-            defaultValue={type==="create" ? data?.lessons || "" : data?.lessons}
+            defaultValue={
+              type === "create" ? data?.lessons || "" : data?.lessons
+            }
           >
             <option value="" disabled>
               Select a Lesson

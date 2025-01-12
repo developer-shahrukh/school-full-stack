@@ -8,6 +8,7 @@ import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import { Class, Event, Prisma } from "@prisma/client";
 import { auth } from "@clerk/nextjs/server";
+import FormContainer from "@/components/FormContainer";
 
 const { userId, sessionClaims } = await auth();
 const role = (sessionClaims?.metadata as { role?: string })?.role;
@@ -79,8 +80,8 @@ const renderRow = (item: EventList) => (
       <div className="flex items-center gap-2">
         {role === "admin" && (
           <>
-            <FormModal table="event" type="update" data={item} />
-            <FormModal table="event" type="delete" id={item.id} />
+            <FormContainer table="event" type="update" data={item} />
+            <FormContainer table="event" type="delete" id={item.id} />
           </>
         )}
       </div>
@@ -153,7 +154,7 @@ const EventListPage = async ({
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-smYellow">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
-            <FormModal table="announcement" type="create" />
+            <FormContainer table="event" type="create" />
           </div>
         </div>
       </div>

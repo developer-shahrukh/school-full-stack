@@ -6,13 +6,11 @@ import InputField from "../InputField";
 import { Dispatch, SetStateAction, useActionState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import {
-  announcementSchema,
-  AnnouncementSchema,
-} from "@/lib/formValidationSchemas";
-import { createAnnouncement, updateAnnouncement } from "@/lib/actions";
+import { resultSchema, ResultSchema } from "@/lib/formValidationSchemas";
+import { createResult, updateResult } from "@/lib/actions";
+import { number } from "zod";
 
-const AnnouncementForm = ({
+const ResultForm = ({
   type,
   data,
   setOpen,
@@ -27,14 +25,14 @@ const AnnouncementForm = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<AnnouncementSchema>({
-    resolver: zodResolver(announcementSchema),
+  } = useForm<ResultSchema>({
+    resolver: zodResolver(resultSchema),
   });
 
   // AFTER REACT 19 IT'LL BE USEACTIONSTATE
 
   const [state, formAction] = useActionState(
-    type === "create" ? createAnnouncement : updateAnnouncement,
+    type === "create" ? createResult : updateResult,
     {
       success: false,
       error: false,
@@ -42,58 +40,41 @@ const AnnouncementForm = ({
   );
 
   const onSubmit = handleSubmit((data) => {
-    formAction(data);
+    const processedData = {
+      ...data,
+      score: Number(data.score), // Convert score to a number
+    };
+  
+    formAction(processedData); // Call your action with the processed data
+  
+    //formAction(data);
   });
 
   const router = useRouter();
 
   useEffect(() => {
     if (state.success) {
-      toast(
-        `Announcement has been ${type === "create" ? "created" : "updated"}!`
-      );
+      toast(`Result has been ${type === "create" ? "created" : "updated"}!`);
       setOpen(false);
       router.refresh();
     }
   }, [state, router, type, setOpen]);
 
-  const { classes } = relatedData;
+  const { students } = relatedData;
 
   return (
     <form className="flex flex-col gap-8" onSubmit={onSubmit}>
       <h1 className="text-xl font-semibold">
-        {type === "create"
-          ? "Create a new announcement"
-          : "Update the announcement"}
+        {type === "create" ? "Create a new result" : "Update the result"}
       </h1>
 
       <div className="flex justify-between flex-wrap gap-4">
         <InputField
-          label="Announcement title"
-          name="title"
-          defaultValue={data?.title}
+          label="Score"
+          name="score"
+          defaultValue={data?.score}
           register={register}
-          error={errors?.title}
-        />
-        <InputField
-          label="Start Date"
-          name="date"
-          defaultValue={data?.date}
-          register={register}
-          error={errors?.date}
-          type="date"
-        />
-        <InputField
-          label="Description"
-          name="description"
-          defaultValue={data?.description}
-          register={register}
-          error={errors?.description}
-          multiline
-          textareaProps={{
-            placeholder: "Enter your description here...",
-            rows: 4,
-          }}
+          error={errors?.score}
         />
         {data && (
           <InputField
@@ -105,28 +86,29 @@ const AnnouncementForm = ({
             hidden
           />
         )}
-
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Class</label>
+          <label className="text-xs text-gray-500">Student</label>
           <select
             className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full max-h-20 overflow-y-auto"
-            {...register("classId")}
+            {...register("studentId")}
             defaultValue={
-              type === "create" ? data?.classes || "" : data?.classes
+              type === "create" ? data?.students || "" : data?.students
             }
           >
             <option value="" disabled>
-              Select a Class
+              Select a Student
             </option>
-            {classes.map((classId: { id: number; name: string }) => (
-              <option value={classId.id} key={classId.id}>
-                {classId.name}
-              </option>
-            ))}
+            {students.map(
+              (student: { id: number; name: string; surname: string }) => (
+                <option value={student.id} key={student.id}>
+                  {student.name} {student.surname}
+                </option>
+              )
+            )}
           </select>
-          {errors.classId?.message && (
+          {errors.studentId?.message && (
             <p className="text-xs text-red-400">
-              {errors.classId.message.toString()}
+              {errors.studentId.message.toString()}
             </p>
           )}
         </div>
@@ -141,4 +123,4 @@ const AnnouncementForm = ({
   );
 };
 
-export default AnnouncementForm;
+export default ResultForm;
