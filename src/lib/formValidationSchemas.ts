@@ -113,7 +113,7 @@ export type EventSchema = z.infer<typeof eventSchema>;
 
 export const resultSchema = z.object({
   id: z.coerce.number().optional(),
-  score: z.number().min(1, { message: "Score is required!" }),
+  score: z.coerce.number().min(1, { message: "Score is required!" }),
   examId: z.coerce.number().optional(),
   assignmentId: z.coerce.number().optional(),
   studentId: z.string().min(1, { message: "Student is required!" }),

@@ -13,6 +13,7 @@ const StudentPage =async() => {
       students: { some: { id: userId! } },
     },
   });
+  
   return (
     <div className="p-4 flex gap-4 flex-col xl:flex-row">
       {/* LEFT */}
