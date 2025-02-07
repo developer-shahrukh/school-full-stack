@@ -122,7 +122,9 @@ const FormContainer = async ({ table, type, data, id }: FormContainerProps) => {
         break;
     }
   }
-  
+  console.log(data);
+  console.log(table);
+  console.log(type);
   return (
     <div className="">
       <FormModal
