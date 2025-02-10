@@ -36,9 +36,9 @@ Here are some screenshots of the application:
 ![Alt Teacher Dashboard](./assets/Teacherdashboard.png)
 ![Alt Parent Dashboard](./assets/Parents.png)
 ![Alt Student Details](./assets/Studentdetails.png)
-![Alt Add Student](./assets/Addstudents.png)
+![Alt Add Student](./assets/Addstudent.png)
 ![Alt Teacher Details](./assets/Teacherdetails.png)
-![Alt Subject Update](./assets/Subjectupdate.png)
+![Alt Subject Update](./assets/Updatesubject.png)
 ![Alt Students](./assets/Students.png)
 ![Alt Teachers](./assets/Teachers.png)
 
