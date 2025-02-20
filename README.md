@@ -29,18 +29,18 @@ A feature-rich, full-stack application designed to streamline school operations.
 
 Here are some screenshots of the application:
 
-//TODO ADD SCREENSHOTS HERE
-![Alt Admin Dashboard](./assets/Login.png)
+
+![Alt Login page](./assets/Login.png)
 ![Alt Admin Dashboard](./assets/Admin.png)
-![Alt Admin Dashboard](./assets/Studentdashboard.png)
-![Alt Admin Dashboard](./assets/Teacherdashboard.png)
-![Alt Admin Dashboard](./assets/Parents.png)
-![Alt Admin Dashboard](./assets/Studentdetails.png)
-![Alt Admin Dashboard](./assets/Addstudents.png)
-![Alt Admin Dashboard](./assets/Teacherdetails.png)
-![Alt Admin Dashboard](./assets/Subjectupdate.png)
-![Alt Admin Dashboard](./assets/Students.png)
-![Alt Admin Dashboard](./assets/Teachers.png)
+![Alt Student Dashboard](./assets/Studentdashboard.png)
+![Alt Teacher Dashboard](./assets/Teacherdashboard.png)
+![Alt Parent Dashboard](./assets/Parents.png)
+![Alt Student Details](./assets/Studentdetails.png)
+![Alt Add Student](./assets/Addstudent.png)
+![Alt Teacher Details](./assets/Teacherdetails.png)
+![Alt Subject Update](./assets/Updatesubject.png)
+![Alt Students](./assets/Students.png)
+![Alt Teachers](./assets/Teachers.png)
 
 ## YouTube Demo
 
